@@ -60,3 +60,5 @@ MoviEase is a full-stack MERN application designed to simplify online movie tick
 
 ## Support
 If you have any questions or need assistance, feel free to reach out at [somen1228@gmail.com](mailto:somen1228@gmail.com).
+
+Link: https://moviease-app.onrender.com
