@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAllBookedShows } from "../../calls/shows";
-import { message, Card, Input, Select } from "antd";
+import { message, Card, Input, Select, Spin } from "antd";
 import moment from "moment";
 
 const { Meta } = Card;
@@ -12,6 +12,7 @@ function BookedShows({ userDetails }) {
   const [filteredShows, setFilteredShows] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("showNameAsc");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,12 +74,14 @@ function BookedShows({ userDetails }) {
   }, [searchTerm, bookedShows, sortOption]);
 
   const fetchAllBookings = async () => {
+    setLoading(true);
     const response = await getAllBookedShows({ userDetails });
     if (response.success) {
       setBookedShows(response.data);
     } else {
       message.error(response.message);
     }
+    setLoading(false);
   };
 
   return (
@@ -106,7 +109,11 @@ function BookedShows({ userDetails }) {
           <Option value="priceDesc">Price (High to Low)</Option>
         </Select>
       </div>
-      {bookedShows.length == 0 ? (
+      {loading ? (
+        <div className="flex justify-center h-screen">
+          <Spin size="large" />
+        </div>
+      ) : bookedShows.length === 0 ? (
         <div className="flex justify-center items-top h-screen text-2xl font-bold text-blue-600 bg-gray-100 border border-gray-300 rounded-lg p-6 shadow-md">
           You haven't booked any shows :(
         </div>
@@ -142,7 +149,7 @@ function BookedShows({ userDetails }) {
                       <strong>Seats:</strong> {booking.seats.join(", ")}
                     </p>
                     <p className="mb-1">
-                      <strong>Price:</strong> Rs. {" "}
+                      <strong>Price:</strong> Rs.{" "}
                       {booking.show.ticketPrice * booking.seats.length} /-
                     </p>
                   </div>

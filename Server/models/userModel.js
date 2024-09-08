@@ -45,5 +45,4 @@ const userSchema = mongoose.Schema({
 });
 
 const User = mongoose.model("userLLDMarch", userSchema);
-
 module.exports = User;

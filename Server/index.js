@@ -4,7 +4,6 @@ const app = express()
 const cors = require('cors')
 const rateLimit = require("express-rate-limit")
 const mongoSanitize = require('express-mongo-sanitize');
-const path = require("path")
 
 require('dotenv').config()
 require('./config/dbConfig')

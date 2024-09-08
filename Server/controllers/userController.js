@@ -217,7 +217,7 @@ const resendOtp = async (req, res) => {
         `<h2>Verification Code: ${otp}</h2>
         <p>Please use the above code to verify your email ID for signing into Moviease. <strong>This OTP is valid for the next 5 minutes.</strong></p>
         <p>If you did not request this email, please disregard it. No further action is required. Thank you for your understanding.</p>
-        <p>Thank you,<br>Team Moviease 🚀</p>`,
+        <p>Thank you,<br>Moviease</p>`,
         null
       );
   

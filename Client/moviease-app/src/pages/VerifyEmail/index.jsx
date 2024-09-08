@@ -74,14 +74,14 @@ function VerifyEmail() {
               </Form.Item>
               {resendTimer === 0 ? (
                 <p
-                  className="text-blue-600 mb-4 cursor-pointer"
+                  className="text-blue-600 mb-4 cursor-pointer font-medium"
                   onClick={handleResendOTP}
                 >
                   Resend OTP
                 </p>
               ) : (
-                <p className="text-black mb-4">
-                  Resend: {resendTimer} seconds
+                <p className="text-black mb-4 font-medium text-blue-400">
+                  Resend OTP: <span>{resendTimer}s</span>
                 </p>
               )}
               <Form.Item className="d-block">
@@ -99,7 +99,7 @@ function VerifyEmail() {
               <p>
                 Already verified?{" "}
                 <Link className="text-blue-600" to="/">
-                  Login now
+                  Login Here
                 </Link>
               </p>
               <p>
