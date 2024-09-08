@@ -6,22 +6,32 @@ import { useEffect } from "react";
 function Login() {
   const navigate = useNavigate();
 
-  useEffect(() => { 
-    if(localStorage.getItem("token")) {
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
       navigate("/home");
     }
   }, [navigate]);
 
   const onFinish = async (values) => {
     const response = await LoginUser(values);
-
-    if (response.success) {
-      console.log(response);
-      message.success("Login successfull");
-      localStorage.setItem("token", response.token);
-      navigate("/home");
-    } else {
-      message.error(response.data.message);
+    try {
+      if (response.success) {
+        if (response.verificationRequired) {
+          message.warning("Please verify your email to continue")
+          navigate("/verifyEmail");
+        } else {
+          // Save token and redirect to home
+          localStorage.setItem("token", response.token);
+          navigate("/home");
+        }
+      } else {
+        console.log(response);
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      // Handle any unexpected errors
+      console.error("Login error:", error);
+      message.error("An unexpected error occurred");
     }
   };
 
@@ -81,9 +91,11 @@ function Login() {
                   Register Here
                 </Link>
               </p>
-              <p className="text-sm mt-1"> Forget Password?{" "} 
+              <p className="text-sm mt-1">
+                {" "}
+                Forget Password?{" "}
                 <Link to="/forget" className="text-blue-600">
-                Click here
+                  Click here
                 </Link>
               </p>
             </div>

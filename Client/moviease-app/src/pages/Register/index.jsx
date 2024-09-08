@@ -12,8 +12,8 @@ function Register() {
         const response = await RegisterUser(values);
         console.log(response);
         if(response.status == "201") {
-            message.success("You are registered successfully! Please login to continue")
-              navigate("/")
+            message.warning("Please verify you Email Id")
+              navigate("/verifyEmail")
         } else {
             message.error(response.data.message)
         }

@@ -1,50 +1,61 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 
-const verifyToken  =  (req,res,next)=>{
-    
+// Middleware to verify JWT token
+const verifyToken = (req, res, next) => {
     const tokenString = req.headers['x-access-token'];
 
-    if(!tokenString){
+    if (!tokenString) {
         return res.status(403).send({
             success: false,
-            message:"No Token is provided"});
+            message: "No Token is provided"
+        });
     }
 
-    const token  = tokenString.split(' ')[1];
+    const token = tokenString.split(' ')[1];
 
-    jwt.verify(token, process.env.SECRET_KEY, async (err,payload)=>{
-        if(err){
+    jwt.verify(token, process.env.SECRET_KEY, async (err, payload) => {
+        if (err) {
             return res.status(403).send({
                 success: false,
-                message:"Invalid JWT token"});
+                message: "Invalid JWT token"
+            });
         }
         
-        const userId  = payload.userId;
-        try{
+        const userId = payload.userId;
+        try {
             const user = await User.findById(userId);
+            if (!user) {
+                return res.status(404).send({
+                    success: false,
+                    message: "User not found"
+                });
+            }
             req.userDetails = user;
             next();
-        }
-        catch(err){
+        } catch (err) {
             console.error("Error fetching user:", err);
-            return res.status(500).send({ message: "Internal Server Error" });
+            return res.status(500).send({ 
+                success: false,
+                message: "Internal Server Error" 
+            });
         }
-    })
-}
+    });
+};
 
-const verifyAdmin = (req,res,next) => {
-
-    const userDetails  = req.userDetails;
-    if(!userDetails.isAdmin){
-        return res.status(403).send({message:"Authorization denied"})
+// Middleware to verify if the user is an admin
+const verifyAdmin = (req, res, next) => {
+    const userDetails = req.userDetails;
+    if (!userDetails.isAdmin) {
+        return res.status(403).send({
+            success: false,
+            message: "Authorization denied"
+        });
     }
-
     next();
-}
-
+};
 
 module.exports = {
     verifyToken,
     verifyAdmin
-}
+};

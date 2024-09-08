@@ -1,38 +1,51 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        require: true
+        required: true
     },
     userId: {
         type: String,
-        require: true
+        required: true
     },
     email: {
         type: String,
-        require: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
-        require: true
+        required: true
     },
     isAdmin: {
         type: Boolean,
-        require: true,
+        required: true,
         default: false
     },
     otp: {
-        type: Number
+        type: Number,
+        required: false  
     },
     otpExpiry: {
-        type: Date
+        type: Date,
+        required: false  
+    },
+    verified: {
+        type: Boolean,
+        default: false 
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now  
     }
 },
 {
     timestamps: true
-})
+});
 
-const User = mongoose.model("userLLDMarch", userSchema)
+userSchema.index({ createdAt: 1 }, { expireAfterSeconds: 600 });
+
+const User = mongoose.model("userLLDMarch", userSchema);
 
 module.exports = User;

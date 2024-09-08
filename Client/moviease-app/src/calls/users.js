@@ -65,3 +65,14 @@ export const getUserDetails = async () => {
       return err.response;
     }
 }
+
+export const emailVerification = async (userObj) => {
+    try {
+        const response = await axiosInstance.post(`${API_URL}/verifyEmail`, {
+            otp: userObj.otp,
+        })
+        return response.data;
+    } catch(err) {
+        return err.response
+    }
+}

@@ -5,6 +5,7 @@ import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import { Spin } from "antd";
+import VerifyEmail from "./pages/VerifyEmail/index.jsx";
 
 // Lazy load components
 const Navbar = lazy(() => import("./components/Navbar.jsx"));
@@ -15,7 +16,7 @@ const ForgetPassword = lazy(() => import("./pages/ForgetPassword"));
 const ResetPasswordPage = lazy(() => import("./pages/Reset/index.jsx"));
 const SingleMovie = lazy(() => import("./pages/SingleMovie/index.jsx"));
 const BookShowPage = lazy(() => import("./pages/BookShow/index.jsx"));
-const BookedShows = lazy(() => import("./pages/AllBookedShows.jsx/index.jsx"));
+const BookedShows = lazy(() => import("./pages/AllBookedShows/index.jsx"));
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/verifyEmail" element={<VerifyEmail />} />
             <Route path="/forget" element={<ForgetPassword />} />
             <Route path="/reset" element={<ResetPasswordPage />} />
             <Route
