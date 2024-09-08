@@ -9,3 +9,5 @@ Currently, two official plugins are available:
 # MoviEase-app
 # MoviEase-Frontend
 
+
+Live link: https://moviease-frontend.netlify.app

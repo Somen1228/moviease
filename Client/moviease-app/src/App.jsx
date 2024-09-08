@@ -5,11 +5,11 @@ import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./hoc/ProtectedRoute";
 import { Spin } from "antd";
-import Navbar from "./components/Navbar.jsx";
-import Home from "./pages/Home/index.jsx";
-import Login from "./pages/Login/index.jsx";
 
-// Lazy load for less critical or larger components
+// Lazy load components
+const Navbar = lazy(() => import("./components/Navbar.jsx"));
+const Home = lazy(() => import("./pages/Home/index.jsx"));
+const Login = lazy(() => import("./pages/Login/index.jsx"));
 const Register = lazy(() => import("./pages/Register/index.jsx"));
 const ForgetPassword = lazy(() => import("./pages/ForgetPassword"));
 const ResetPasswordPage = lazy(() => import("./pages/Reset/index.jsx"));
@@ -19,24 +19,24 @@ const BookedShows = lazy(() => import("./pages/AllBookedShows.jsx/index.jsx"));
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
-const LoadingSpinner = () => (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      height: "100vh",
-    }}
-  >
-    <Spin size="large" />
-  </div>
-);
-
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense
+          fallback={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}
+            >
+              <Spin size="large" />
+            </div>
+          }
+        >
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
