@@ -69,10 +69,23 @@ export const getUserDetails = async () => {
 export const emailVerification = async (userObj) => {
     try {
         const response = await axiosInstance.post(`${API_URL}/verifyEmail`, {
-            otp: userObj.otp,
+            otp: Number(userObj.otp),
         })
         return response.data;
     } catch(err) {
         return err.response
     }
 }
+
+export const resendOtp = async (email) => {
+  try {
+    console.log(email);
+    
+    const response = await axios.post(`${API_URL}/resendOtp`, {
+        email: email
+    });
+    return response.data;
+  } catch (error) {
+    return { success: false, message: error.response?.data?.message || "Error" };
+  }
+};

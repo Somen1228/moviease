@@ -8,12 +8,11 @@ function Register() {
     const navigate = useNavigate();
     
     const onFinish = async (values) => {
-        console.log("Form for register page is submitted");
         const response = await RegisterUser(values);
-        console.log(response);
         if(response.status == "201") {
             message.warning("Please verify you Email Id")
-              navigate("/verifyEmail")
+            localStorage.setItem("emailForOtp", values.email);
+            navigate("/verifyEmail")
         } else {
             message.error(response.data.message)
         }

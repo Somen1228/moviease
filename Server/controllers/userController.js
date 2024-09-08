@@ -174,6 +174,66 @@ const login = async (req, res) => {
   }
 };
 
+const resendOtp = async (req, res) => {
+    const { email } = req.body;
+   
+    if (!email) {
+      return res.status(400).send({
+        success: false,
+        message: "Email is required",
+      });
+    }
+  
+    try {
+      const user = await User.findOne({ email });
+  
+      if (!user) {
+        return res.status(404).send({
+          success: false,
+          message: "User not found",
+        });
+      }
+  
+      if (user.verified) {
+        return res.status(400).send({
+          success: false,
+          message: "User is already verified",
+        });
+      }
+  
+      // Generate new OTP
+      const otp = otpGenerator();
+      const otpExpiry = Date.now() + 5 * 60 * 1000; // OTP valid for 5 minutes
+  
+      // Update user's OTP and expiry time
+      user.otp = otp;
+      user.otpExpiry = otpExpiry;
+      await user.save();
+  
+      // Send OTP to user's email
+      sendEmail(
+        [email],
+        "Resend OTP for Email Verification",
+        `<h2>Verification Code: ${otp}</h2>
+        <p>Please use the above code to verify your email ID for signing into Moviease. <strong>This OTP is valid for the next 5 minutes.</strong></p>
+        <p>If you did not request this email, please disregard it. No further action is required. Thank you for your understanding.</p>
+        <p>Thank you,<br>Team Moviease 🚀</p>`,
+        null
+      );
+  
+      return res.status(200).send({
+        success: true,
+        message: "OTP resent successfully",
+      });
+    } catch (error) {
+      return res.status(500).send({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  };
+  
+
 const getCurrentUser = async (req, res) => {
     const userDetails = {
       name: req.userDetails.name,
@@ -303,6 +363,7 @@ module.exports = {
   getAllUsers,
   forgetPassword,
   resetPassword,
+  resendOtp
 };
 
 function otpGenerator() {

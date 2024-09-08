@@ -44,8 +44,6 @@ const userSchema = mongoose.Schema({
     timestamps: true
 });
 
-userSchema.index({ createdAt: 1 }, { expireAfterSeconds: 600 });
-
 const User = mongoose.model("userLLDMarch", userSchema);
 
 module.exports = User;

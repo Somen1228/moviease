@@ -18,6 +18,7 @@ function Login() {
       if (response.success) {
         if (response.verificationRequired) {
           message.warning("Please verify your email to continue")
+          localStorage.setItem("emailForOtp", values.email);
           navigate("/verifyEmail");
         } else {
           // Save token and redirect to home
@@ -40,7 +41,7 @@ function Login() {
       <header className="App-header">
         <main className="main-area max-w-md mx-auto text-center p-4">
           <section>
-            <h3 className="text-2xl font-bold mb-6">Login to MoviEase.com</h3>
+            <h3 className="text-2xl font-bold mb-6">Login to MoviEase</h3>
           </section>
 
           <section className="right-section w-[400px]">
