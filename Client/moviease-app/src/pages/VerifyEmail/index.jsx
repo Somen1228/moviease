@@ -80,7 +80,7 @@ function VerifyEmail() {
                   Resend OTP
                 </p>
               ) : (
-                <p className="text-black mb-4 font-medium text-blue-400">
+                <p className="mb-4 font-medium text-blue-400">
                   Resend OTP: <span>{resendTimer}s</span>
                 </p>
               )}

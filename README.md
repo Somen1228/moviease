@@ -54,9 +54,10 @@ MoviEase is a full-stack MERN application designed to simplify online movie tick
    ```
 
 ## How to Use
-- Sign up or log in to your account.
+- Sign up or log in to your account. You will need to verify your email during signup.
 - Browse through the available movies and select your preferred showtime.
 - Book your seats and proceed to payment through Stripe for a secure checkout.
+- You can check all your bookings from the menu section from the top right Navbar button.
 
 ## Support
 If you have any questions or need assistance, feel free to reach out at [somen1228@gmail.com](mailto:somen1228@gmail.com).
