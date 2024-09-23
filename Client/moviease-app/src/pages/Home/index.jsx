@@ -37,19 +37,27 @@ function Home() {
 
   return (
     <>
-      <SearchBar value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+      <SearchBar
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
       <div className="my-[60px] h-[100rem] px-4 pb-20 sm:px-6 md:px-8">
         <div className="flex flex-wrap gap-8 justify-center mt-8">
           {loading ? (
             // Loader: Display placeholders while loading
-            Array(8).fill(0).map((_, index) => (
-              <div key={index} className="flex-col w-[140px] sm:w-[160px] md:w-[180px] lg:w-[200px] animate-pulse">
-                <div className="h-[210px] sm:h-[240px] md:h-[270px] lg:h-[300px] w-full bg-gray-300 rounded-2xl" />
-                <div className="h-[40px] mt-2 bg-gray-300 rounded-3xl" />
-              </div>
-            ))
-          ) : (
-            filteredMovies && filteredMovies.map((movie) => {
+            Array(8)
+              .fill(0)
+              .map((_, index) => (
+                <div
+                  key={index}
+                  className="flex-col w-[140px] sm:w-[160px] md:w-[180px] lg:w-[200px] animate-pulse"
+                >
+                  <div className="h-[210px] sm:h-[240px] md:h-[270px] lg:h-[300px] w-full bg-gray-300 rounded-2xl" />
+                  <div className="h-[40px] mt-2 bg-gray-300 rounded-3xl" />
+                </div>
+              ))
+          ) : filteredMovies && filteredMovies.length !== 0 ? (
+            filteredMovies.map((movie) => {
               return (
                 <div
                   key={movie._id}
@@ -82,6 +90,15 @@ function Home() {
                 </div>
               );
             })
+          ) : (
+            <div className="flex flex-col items-center items-top h-screen text-xl font-bold text-gray-400 rounded-lg p-6">
+              <div> Oops! No movies match your search.</div>
+              <div>
+                {" "}
+                Maybe try a popcorn-worthy blockbuster or check your spelling?
+                🍿
+              </div>
+            </div>
           )}
         </div>
       </div>

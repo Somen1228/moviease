@@ -46,17 +46,17 @@ function Register() {
 
 
                             <Form.Item
-                                label="UserId"
-                                htmlFor="userId"
-                                name="userId"
+                                label="Username"
+                                htmlFor="userName"
+                                name="userName"
                                 className="d-block"
 
-                                rules={[{required: true, message: "UserId is required"}]}
+                                rules={[{required: true, message: "UserName is required"}]}
                             >
                                 <Input
-                                    id="userId"
+                                    id="userName"
                                     type="text"
-                                    placeholder="Enter your UserId"
+                                    placeholder="Enter your username"
 
                                 ></Input>
                             </Form.Item>
