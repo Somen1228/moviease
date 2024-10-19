@@ -41,7 +41,7 @@ function ResetPasswordPage() {
                             </Form.Item>
 
                             <Form.Item
-                                label="Password"
+                                label="New Password"
                                 htmlFor="password"
                                 name="password"
                                 className="d-block"
@@ -50,7 +50,7 @@ function ResetPasswordPage() {
                                 <Input
                                     id="password"
                                     type="password"
-                                    placeholder="Enter your Password"
+                                    placeholder="Enter new password"
 
                                 ></Input>
                             </Form.Item>
