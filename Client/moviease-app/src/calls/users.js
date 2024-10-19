@@ -9,7 +9,7 @@ export const RegisterUser = async (userObj) => {
       name: userObj.name,
       email: userObj.email,
       password: userObj.password,
-      userId: userObj.userId,
+      userId: userObj.userName,
       userType: "CUSTOMER"
     })
       return response;

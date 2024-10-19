@@ -9,6 +9,7 @@ function Register() {
     
     const onFinish = async (values) => {
         const response = await RegisterUser(values);
+        console.log(response);
         if(response.status == "201") {
             message.warning("Please verify you Email Id")
             localStorage.setItem("emailForOtp", values.email);
